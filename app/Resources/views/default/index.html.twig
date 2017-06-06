@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<nav>
+    <ul>
+        <li>
+            <a href="{{ path('en__RG__homepage') }}"
+               class="{{ app.request.getLocale == "en" ? "active" }}">EN</a>
+        </li>
+        <li>
+            <a href="{{ path('pt__RG__homepage') }}"
+               class="{{ app.request.getLocale == "pt" ? "active" }}">PT</a>
+        </li>
+        <li>
+            <a href="{{ path('ru__RG__homepage') }}"
+               class="{{ app.request.getLocale == "ru" ? "active" }}"">RU</a>
+        </li>
+    </ul>
+</nav>
+<h1>
+    {% trans %}app.title{% endtrans %}
+</h1>
+
+<div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+            <tr>
+                {% for timeRange,timeRangeExercises in exercises %}
+                    <th>{{ timeRange|trans }} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+            <tr>
+                {% for timeRange,timeRangeExercises in exercises %}
+                    <td>
+                        <ul>
+                            {% for exercise in timeRangeExercises %}
+                               <li>
+                                   {{- exercise.description -}} <span>{{ exercise.weight }}kg x {{ exercise.repetitions }}</span>
+                               </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
